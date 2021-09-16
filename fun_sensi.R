@@ -159,17 +159,18 @@ sens.plot <- function(
                 input.re[rep(seq_len(nrow(input.re)), each=length(r_mc_seq)),])
   
   # out_m for sensitivity plot ----
-  out_m = NULL
-  
+  # out_m = NULL
+  out_mz = NULL
   for(i in 1:nrow(input_m)){
     out_m1=AdjOCME(R.obs=R.obs, 
                    input.re=input_m[i,-c(1,2)], 
                    r_mc=input_m[i,1], r_yc=input_m[i,2], 
                    cols.Z1=covariates.MYboth,cols.Z2=covariates.Monly,cols.Z3=covariates.Yonly,
                    n=n, alpha=alpha)
-    out_m=rbind(unlist(out_m1),out_m)
+    out_mz1=c(input_m[i, -c(1,2)],out_m1[-c(3,4)])
+    out_mz=rbind(unlist(out_mz1),out_mz)
   }
-  out_mz=cbind(input_m[,-c(1:4)], out_m)
+  # out_mz=cbind(input_m[,-c(1:4)], out_m)
   
   # results from model M1
   R2.M1=R.obs[ c(3,cols.Z1,cols.Z2),c(3,cols.Z1,cols.Z2) ]
